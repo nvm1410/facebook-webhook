@@ -10,7 +10,7 @@ app.get("/", async (req, res) => {
   res.send("Hello world");
 });
 app.get("/webhooks", async (req, res) => {
-  res.status(200).send({ status: "ok" });
+  res.status(200).send(req.query?.["hub.challenge"] ?? "");
 });
 app.post("/webhooks", async (req, res) => {
   await s3
