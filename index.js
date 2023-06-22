@@ -9,6 +9,9 @@ app.use(bodyParser.json());
 app.get("/", async (req, res) => {
   res.send("Hello world");
 });
+app.get("/webhooks", async (req, res) => {
+  res.status(200).send({ status: "ok" });
+});
 app.post("/webhooks", async (req, res) => {
   await s3
     .putObject({
