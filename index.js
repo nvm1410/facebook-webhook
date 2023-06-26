@@ -3,8 +3,7 @@ const app = express();
 const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 const bodyParser = require("body-parser");
-const pageAccessToken =
-  "EAATusydAtZBMBANjGHKBXzgdmnQhKnVUZBto942VD7bEyB7NlBCVadBfdfJbKMFNeQ9gxTl6A3W5caowtYmGZC6OuGZCl4HBydpPITzpkt0sD6aUVNHxevzfGqH3Tn3joKAs58udn0rvtfCZBv4MBlZBXMlgjMFzxRiytsa77HC8WuSJvBFaiXHDC8nBVFHA0RM6O7SkhgmU4mxoIb4vai";
+const pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
 app.use(bodyParser.json());
 
 app.get("/", async (req, res) => {
