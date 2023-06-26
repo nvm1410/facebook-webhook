@@ -3,7 +3,8 @@ const app = express();
 const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 const bodyParser = require("body-parser");
-
+const pageAccessToken =
+  "EAATusydAtZBMBANjGHKBXzgdmnQhKnVUZBto942VD7bEyB7NlBCVadBfdfJbKMFNeQ9gxTl6A3W5caowtYmGZC6OuGZCl4HBydpPITzpkt0sD6aUVNHxevzfGqH3Tn3joKAs58udn0rvtfCZBv4MBlZBXMlgjMFzxRiytsa77HC8WuSJvBFaiXHDC8nBVFHA0RM6O7SkhgmU4mxoIb4vai";
 app.use(bodyParser.json());
 
 app.get("/", async (req, res) => {
@@ -11,6 +12,12 @@ app.get("/", async (req, res) => {
 });
 app.get("/webhooks", async (req, res) => {
   res.status(200).send(req.query?.["hub.challenge"] ?? "");
+});
+app.get("/leads/:id", async (req, res) => {
+  const leadId = req.params.id;
+  const graphEndpoint = `https://graph.facebook.com/v17.0/${leadId}/?access_token=${pageAccessToken}`;
+  const result = fetch(graphEndpoint);
+  res.send(result);
 });
 app.post("/webhooks", async (req, res) => {
   await s3
