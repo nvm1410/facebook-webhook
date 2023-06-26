@@ -16,8 +16,9 @@ app.get("/webhooks", async (req, res) => {
 app.get("/leads/:id", async (req, res) => {
   const leadId = req.params.id;
   const graphEndpoint = `https://graph.facebook.com/v17.0/${leadId}/?access_token=${pageAccessToken}`;
-  const result = fetch(graphEndpoint);
-  res.send(result);
+  const result = await fetch(graphEndpoint);
+  const data = await result.json();
+  res.send(data);
 });
 app.post("/webhooks", async (req, res) => {
   await s3
